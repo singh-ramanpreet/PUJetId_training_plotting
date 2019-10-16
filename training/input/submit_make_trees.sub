@@ -1,0 +1,10 @@
+executable           = run_make_trees.sh 
+output               = std_make_trees_$(ClusterId)_$(ProcId)
+error                = std_make_trees_$(ClusterId)_$(ProcId)
+log                  = log_make_trees_$(ClusterId)_$(ProcId)
+
+transfer_input_files = make_training_trees.py,
+
++JobFlavour          = "tomorrow"
+
+queue

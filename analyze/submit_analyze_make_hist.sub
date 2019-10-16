@@ -1,0 +1,114 @@
+# this is comment line
+executable            = run_analyze_make_hist.sh
+output                = output/$(output_filename).std
+error                 = output/$(output_filename).std
+log                   = output/$(output_filename).log
+
+transfer_input_files  = analyze_make_hists.py, tmva_weights, pu_weights_2017.root
+transfer_output_files = output,
+
++JobFlavour           = "espresso"
+#+JobFlavour           = "workday"
+
+#+AccountingGroup      = "group_u_CMST3.all"
+#+AccountingGroup      = "group_u_CMS.u_zh.priority"
+
+era = 94X
+data_type = mc
+year = 2017
+period = full
+lumi = 41.54
+N_mc = 48675378
+xs = 5343.0
+
+output_filename = output_hists_$(data_type)_$(year)$(period)_$(ItemIndex).root
+arguments = $(era) $(data_type) $(year) $(period) $(lumi) $(N_mc) $(xs) $(input_filename) $(output_filename)
+
+mc_pt = 20
+do_mc = False
+do_data = True
+
+if $(do_mc)
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+# -------
+data_type = mc
+period = B
+lumi = 4.823
+
+if $(do_mc)
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+if $(do_data)
+    data_type = data
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/Data_$(year)/DoubleMuon_$(period)/data_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+# -------
+data_type = mc
+period = C
+lumi = 9.664
+
+if $(do_mc)
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+if $(do_data)
+    data_type = data
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/Data_$(year)/DoubleMuon_$(period)/data_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+# -------
+data_type = mc
+period = D
+lumi = 4.252
+
+if $(do_mc)
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+if $(do_data)
+    data_type = data
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/Data_$(year)/DoubleMuon_$(period)/data_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+# -------
+data_type = mc
+period = E
+xs = 9.278
+
+if $(do_mc)
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+if $(do_data)
+    data_type = data
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/Data_$(year)/DoubleMuon_$(period)/data_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+# -------
+data_type = mc
+period = F
+xs = 13.54
+
+if $(do_mc)
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif
+
+if $(do_data)
+    data_type = data
+    input_file_dir = /eos/user/s/singhr/jme_ntuples/Data_$(year)/DoubleMuon_$(period)/data_flatTree
+    queue input_filename matching files ($(input_file_dir)_*.root)
+endif

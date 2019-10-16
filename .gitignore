@@ -1,0 +1,11 @@
+**.ipynb_checkpoints
+
+**.root
+
+training/output/*
+
+analyze/output/*
+
+!analyze/pu_weights_2017.root
+
+
