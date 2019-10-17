@@ -5,7 +5,7 @@ source /cvmfs/sft.cern.ch/lcg/views/LCG_96python3/x86_64-centos7-gcc8-opt/setup.
 era="94X"
 max_N=500000
 jet_type="chs"
-in_dir="/afs/cern.ch/work/s/singhr/jets_study/analysis_2/training/input/"
+in_dir="/afs/cern.ch/work/s/singhr/jets_study/PUJetId_training_plotting/training/input/"
 d_name="BDT_${jet_type}_${era}"
 
 mkdir -p output

@@ -247,7 +247,7 @@ def plot_roc(mc_file=mc_file, e_bin="Eta0p0To2p5", leg_pos=(0.2, 0.6, 0.4, 0.9),
 plot_roc(mc_file=mc_file, e_bin="Eta0p0To2p5", leg_pos=(0.2, 0.6, 0.4, 0.9), frame=(0.04, 0.009, 1.01, 0.4))
 plot_roc(mc_file=mc_file, e_bin="Eta2p5To2p75", leg_pos=(0.2, 0.6, 0.4, 0.9), frame=(0.04, 0.009, 1.01, 0.4))
 plot_roc(mc_file=mc_file, e_bin="Eta2p75To3p0", leg_pos=(0.2, 0.6, 0.4, 0.9), frame=(0.04, 0.009, 1.01, 0.4))
-plot_roc(mc_file=mc_file, e_bin="Eta3p0To5p0", leg_pos=(0.2, 0.6, 0.4, 0.9), frame=(0.04, 0.009, 1.01, 0.4))
+plot_roc(mc_file=mc_file, e_bin="Eta3p0To5p0", leg_pos=(0.2, 0.6, 0.4, 0.9), frame=(0.01, 0.05, 1.01, 0.6))
 
 
 def plot_mva_hists(mc_hists_mvas=[], mc_data_hists_mva=[], e_bin="", pt_bin=""):
@@ -334,8 +334,8 @@ for e_bin in eta_bins:
     roc_mva_old_per_bin = []
     roc_mva_new_per_bin = []
     for j, pt_bin in enumerate(pt_bins):
-        roc_mva_old_per_bin.append(graph_roc_mva(mc_file1, data_file1, "old", e_bin, pt_bins=[pt_bin]))
-        roc_mva_new_per_bin.append(graph_roc_mva(mc_file1, data_file1, "new", e_bin, pt_bins=[pt_bin]))
+        roc_mva_old_per_bin.append(graph_roc_mva(mc_file, data_file, "old", e_bin, pt_bins=[pt_bin]))
+        roc_mva_new_per_bin.append(graph_roc_mva(mc_file, data_file, "new", e_bin, pt_bins=[pt_bin]))
 
     mc_hists_mvas = [
         roc_mva_new.make_roc_array()[1], 
