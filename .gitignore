@@ -8,4 +8,9 @@ analyze/output/*
 
 !analyze/pu_weights_2017.root
 
+plotting/setup_env/*
+
+!plotting/setup_env/setup.sh
+
+plotting/roc_mva_out
 
