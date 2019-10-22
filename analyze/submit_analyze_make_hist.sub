@@ -11,7 +11,7 @@ transfer_output_files = output,
 #+JobFlavour           = "workday"
 
 #+AccountingGroup      = "group_u_CMST3.all"
-#+AccountingGroup      = "group_u_CMS.u_zh.priority"
++AccountingGroup      = "group_u_CMS.u_zh.priority"
 
 era = 94X
 # data_type = mc
@@ -54,7 +54,7 @@ if $(do_dy_amcatnlo)
     # neg events fraction 0.1624
     # ntotal = 27413121
     # N_mc = ntotal - 2 * neg_fraction * ntotal
-    N_mc = 18509339.3
+    N_mc = 18509334
     xs = 6529.0
     output_filename = dy_amcatnlo_$(mc_pt)_$(data_type)_$(year)$(period)_$(ItemIndex).root
     input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/mc_flatTree_
