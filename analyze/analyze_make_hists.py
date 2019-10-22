@@ -91,6 +91,7 @@ pt_bins = [
     "Pt20To30",
     "Pt30To40",
     "Pt40To50",
+    "Pt50To100",
 ]
 
 f_pt_bins = [
@@ -251,14 +252,15 @@ class book_hist_dict:
         return hist_dict
 
 # keys for per event histograms
+# should be just one element which is "mc" or "data", hardcoded
 h_keys1 = [data_type]
 
 h_nvtx = book_hist_dict(100, 0, 100, "nvtx", keys=h_keys1).clone()
 
-h_z_mass = book_hist_dict(60, 60, 120, "Z_mass", keys=h_keys1).clone()
+h_z_mass = book_hist_dict(40, 70, 110, "Z_mass", keys=h_keys1).clone()
 h_z_pt = book_hist_dict(60, 0, 300, "Z_pt", keys=h_keys1).clone()
 h_z_phi = book_hist_dict(32, -3.2, 3.2, "Z_phi", keys=h_keys1).clone()
-h_z_rapidity = book_hist_dict(60, -3.0, 3.0, "Z_rapidity", keys=h_keys1).clone()
+h_z_rapidity = book_hist_dict(30, -3.0, 3.0, "Z_rapidity", keys=h_keys1).clone()
 
 h_lept_pt1 = book_hist_dict(50, 0, 250, "lept_pt1", keys=h_keys1).clone()
 h_lept_pt2 = book_hist_dict(50, 0, 250, "lept_pt2", keys=h_keys1).clone()
@@ -291,7 +293,7 @@ if data_type == "mc":
 
 h_keys4 = h_keys2 + h_keys3
 
-h_jet_pt = book_hist_dict(60, 0.0, 60.0, "jet_pt", units="GeV", keys=h_keys1, keys_sub=h_keys4).clone()
+h_jet_pt = book_hist_dict(100, 0.0, 100.0, "jet_pt", units="GeV", keys=h_keys1, keys_sub=h_keys4).clone()
 h_jet_eta = book_hist_dict(50, -5.0, 5.0, "jet_eta", keys=h_keys1, keys_sub=h_keys4).clone()
 h_jet_energy = book_hist_dict(100, 0.0, 500.0, "jet_energy", units="GeV", keys=h_keys1, keys_sub=h_keys4).clone()
 h_jet_phi = book_hist_dict(64, -3.2, 3.2, "jet_phi", keys=h_keys1, keys_sub=h_keys4).clone()
@@ -435,7 +437,7 @@ def process_event(e):
     z_rapidity = e.llRapidity
 
     n_jets = len(e.jetPt)
-    assert (n_jets == e.nJets), "here is some problem"
+    assert (n_jets == e.nJets)
     
     dphi_zj = dphi(z_phi, e.phi[0])
     
@@ -508,7 +510,7 @@ def process_event(e):
         tmva_v_pull[0] = e.pull[i]
         
         old_mva = e.pumva[i]
-        new_mva = -99
+        new_mva = "something"
         
         for i, f_eta in enumerate(f_eta_bins):
         
@@ -516,7 +518,7 @@ def process_event(e):
             
                 new_mva = tmva_readers[i].EvaluateMVA("BDT")
         
-        assert (new_mva != -99), "somethings wrong"
+        assert (new_mva != "something")
         
         def fill_hist_per_jet(k=""):
             h_jet_pt[k].Fill(jet_pt, weight)
