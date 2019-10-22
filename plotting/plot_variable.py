@@ -9,12 +9,12 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument(
-    "--mc_hist_file", type=str, default="hists/hists_mc_2017full.root",
+    "--mc_hist_file", type=str, default="hists/dy_amcatnlo_20_mc_2017full.root",
     help="mc histogram root file, default=%(default)s"
     )
 
 parser.add_argument(
-    "--data_hist_file", type=str, default="hists/hists_data_2017full.root",
+    "--data_hist_file", type=str, default="hists/double_muon_data_2017full.root",
     help="mc histogram root file, default=%(default)s"
     )
 

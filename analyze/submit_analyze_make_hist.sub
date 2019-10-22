@@ -25,8 +25,8 @@ arguments = $(era) $(data_type) $(year) $(period) $(lumi) $(N_mc) $(xs) $(input_
 
 mc_pt = 20
 
-do_dy_madgraph = True
-do_dy_amcatnlo = False
+do_dy_madgraph = False
+do_dy_amcatnlo = True
 do_data_doubleMu = False
 do_data_SingleMu = False
 
@@ -51,6 +51,11 @@ endif
 
 if $(do_dy_amcatnlo)
     data_type = mc
+    # neg events fraction 0.1624
+    # ntotal = 27413121
+    # N_mc = ntotal - 2 * neg_fraction * ntotal
+    N_mc = 18509339.3
+    xs = 6529.0
     output_filename = dy_amcatnlo_$(mc_pt)_$(data_type)_$(year)$(period)_$(ItemIndex).root
     input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/mc_flatTree_
 endif
