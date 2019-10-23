@@ -18,10 +18,20 @@ echo "now installing pip pkgs"
 
 #pip install --user --upgrade pip
 
-if [ ! -d pyroot_cms_scripts ]; then
-    (git clone https://github.com/singh-ramanpreet/pyroot_cms_scripts.git --quiet
-    cd pyroot_cms_scripts
-    git checkout 0.31
+pip install --user --upgrade uproot
+
+# for pyroot_cms_scripts
+install_version=0.3.1
+current_version=`pip show pyroot_cms_scripts | grep Version | cut -d' ' -f 2`
+
+if [ current_version!=install_version ]; then
+
+    if [ ! -d pyroot_cms_scripts ]; then
+        git clone https://github.com/singh-ramanpreet/pyroot_cms_scripts.git --quiet
+    fi
+    (cd pyroot_cms_scripts
+    git pull --quiet
+    git checkout $install_version --quiet
     pip install --user .
     cd ..)
 fi
