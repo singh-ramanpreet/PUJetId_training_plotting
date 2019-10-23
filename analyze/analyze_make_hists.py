@@ -439,7 +439,8 @@ def process_event(e):
 
     if data_type == "mc":
 
-        gen_weight = e.genEvtWeight_
+        if e.genEvtWeight_ < 0:
+            gen_weight = -1.0
 
         npu = e.npu_
         pu_weight = h_pu_weights.GetBinContent(npu)
@@ -648,11 +649,13 @@ def process_event(e):
 
     for i in range(n_jets):
 
-        if abs(dphi_zj) > 2.5:
+        pt_zj_ratio = e.jetPt[0]/e.llPt
+
+        if (abs(dphi_zj) > 2.5) and (pt_zj_ratio > 0.5) and (pt_zj_ratio < 1.5):
 
             key = "tight"
 
-            if mva_wp1 > e_new_mva[i]:
+            if e_new_mva[i] > mva_wp1:
                 h_control_jet_pt[f"{key}_pass_wp1"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_pass_wp1"].Fill(e.jetEta[i], weight)
 
@@ -660,7 +663,7 @@ def process_event(e):
                 h_control_jet_pt[f"{key}_fail_wp1"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_fail_wp1"].Fill(e.jetEta[i], weight)
 
-            if mva_wp2 > e_new_mva[i]:
+            if e_new_mva[i] > mva_wp2:
                 h_control_jet_pt[f"{key}_pass_wp2"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_pass_wp2"].Fill(e.jetEta[i], weight)
 
@@ -668,7 +671,7 @@ def process_event(e):
                 h_control_jet_pt[f"{key}_fail_wp2"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_fail_wp2"].Fill(e.jetEta[i], weight)
 
-            if mva_wp3 > e_new_mva[i]:
+            if e_new_mva[i] > mva_wp3:
                 h_control_jet_pt[f"{key}_pass_wp3"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_pass_wp3"].Fill(e.jetEta[i], weight)
 
@@ -680,7 +683,7 @@ def process_event(e):
 
             key = "loose"
 
-            if mva_wp1 > e_new_mva[i]:
+            if e_new_mva[i] > mva_wp1:
                 h_control_jet_pt[f"{key}_pass_wp1"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_pass_wp1"].Fill(e.jetEta[i], weight)
 
@@ -688,7 +691,7 @@ def process_event(e):
                 h_control_jet_pt[f"{key}_fail_wp1"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_fail_wp1"].Fill(e.jetEta[i], weight)
 
-            if mva_wp2 > e_new_mva[i]:
+            if e_new_mva[i] > mva_wp2:
                 h_control_jet_pt[f"{key}_pass_wp2"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_pass_wp2"].Fill(e.jetEta[i], weight)
 
@@ -696,7 +699,7 @@ def process_event(e):
                 h_control_jet_pt[f"{key}_fail_wp2"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_fail_wp2"].Fill(e.jetEta[i], weight)
 
-            if mva_wp3 > e_new_mva[i]:
+            if e_new_mva[i] > mva_wp3:
                 h_control_jet_pt[f"{key}_pass_wp3"].Fill(e.jetPt[i], weight)
                 h_control_jet_eta[f"{key}_pass_wp3"].Fill(e.jetEta[i], weight)
 
@@ -706,7 +709,6 @@ def process_event(e):
 
 
 total_events = events.GetEntries()
-
 
 mva_wp1 = -0.21
 mva_wp2 = 0.65
