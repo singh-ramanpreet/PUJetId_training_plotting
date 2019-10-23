@@ -30,7 +30,7 @@ if [ current_version!=install_version ]; then
         git clone https://github.com/singh-ramanpreet/pyroot_cms_scripts.git --quiet
     fi
     (cd pyroot_cms_scripts
-    git pull --quiet
+    git pull origin $install_version
     git checkout $install_version --quiet
     pip install --user .
     cd ..)

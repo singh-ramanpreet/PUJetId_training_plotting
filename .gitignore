@@ -10,3 +10,4 @@ analyze/output/*
 setup_env
 !setup_env/setup.sh
 
+*.pdf
