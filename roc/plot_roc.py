@@ -89,4 +89,4 @@ for e in eta_bins:
     legend.Draw()
 
     canvas.Draw()
-    canvas.Print(f"roc_{eta_bin}.pdf")
+    canvas.Print(f"plots/roc_{eta_bin}.pdf")
