@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+
+import ROOT
+import numpy as np
+
+eff_mva_hists = ROOT.TFile.Open("eff_mva_hists.root")
+output_root_file = ROOT.TFile("PUJetId_wp_hists.root", "recreate")
+
+eta_bins = [
+    "Eta0p0To2p5",
+    "Eta2p5To2p75",
+    "Eta2p75To3p0",
+    "Eta3p0To5p0"
+]
+
+pt_bins = [
+    "Pt10To20",
+    "Pt20To30",
+    "Pt30To40",
+    "Pt40To50",
+]
+
+output_root_file.cd()
+
+make_wp_hists = """
+eta_edges = [0.0] + [float(e.replace("Eta", "").replace("p", ".").split("To")[1]) for e in eta_bins]
+pt_edges = [10.0] + [float(p.replace("Pt", "").replace("p", ".").split("To")[1]) for p in pt_bins]
+
+print("Eta edges  ", eta_edges)
+print("Pt edges   ", pt_edges)
+
+# 20% to 99%
+prompt_effs = [round(0.20 + i * 0.01, 2) for i in range(80)]
+
+for prompt_eff in prompt_effs:
+    wp_hist_mva = ROOT.TH2F(
+        f"prompt_eff_{prompt_eff * 100:2.0f}_mva_score", "MVA Score;|#eta|;p_{T}",
+        len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64),
+        len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64)
+    )
+    wp_hist_mva.SetStats(0)
+
+    wp_hist_pileup = ROOT.TH2F(
+        f"prompt_eff_{prompt_eff * 100:2.0f}_pileup_eff", "Pileup Efficiency;|#eta|;p_{T}",
+        len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64),
+        len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64)
+    )
+    wp_hist_pileup.SetStats(0)
+
+    for e in eta_bins:
+
+        e_bin_edges = e.replace("Eta", "").replace("p", ".").split("To")
+        e_bin_center = (float(e_bin_edges[0]) + float(e_bin_edges[1]))/2.0
+
+        for p in pt_bins:
+
+            p_bin_edges = p.replace("Pt", "").replace("p", ".").split("To")
+            p_bin_center = (float(p_bin_edges[0]) + float(p_bin_edges[1]))/2.0
+
+            h_prompt_eff = eff_mva_hists.Get(f"prompt_eff_new_{e}_{p}")
+            h_pileup_eff = eff_mva_hists.Get(f"pileup_eff_new_{e}_{p}")
+
+            # loop over eff hist and find nearest best value
+            for i in range(1, h_prompt_eff.GetNbinsX() + 1):
+                
+                mva_score_bin = i
+                bin_content = h_prompt_eff.GetBinContent(i)
+
+                if (prompt_eff < bin_content + 0.005) and (prompt_eff > bin_content - 0.005): break
+
+            mva_score_value = h_prompt_eff.GetBinCenter(mva_score_bin)
+            pileup_eff = h_pileup_eff.GetBinContent(mva_score_bin)
+
+            pileup_eff = round(pileup_eff * 100, 2)
+
+            wp_hist_mva.SetBinContent(wp_hist_mva.FindBin(e_bin_center, p_bin_center), mva_score_value)
+            wp_hist_pileup.SetBinContent(wp_hist_pileup.FindBin(e_bin_center, p_bin_center), pileup_eff)
+
+    wp_hist_pileup.SetMarkerSize(1.4)
+
+    wp_hist_mva.Write()
+    wp_hist_pileup.Write()
+"""
+
+exec(make_wp_hists)
+
+pt_bins = ["Pt10To50"]
+
+output_root_file.mkdir("pt_bin_inclusive")
+output_root_file.cd("pt_bin_inclusive")
+
+exec(make_wp_hists)
