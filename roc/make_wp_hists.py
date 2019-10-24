@@ -33,15 +33,18 @@ print("Pt edges   ", pt_edges)
 prompt_effs = [round(0.20 + i * 0.01, 2) for i in range(80)]
 
 for prompt_eff in prompt_effs:
+
+    name_string = f"{prompt_eff * 100:2.0f}"
+
     wp_hist_mva = ROOT.TH2F(
-        f"prompt_eff_{prompt_eff * 100:2.0f}_mva_score", "MVA Score;|#eta|;p_{T}",
+        f"prompt_eff_{name_string}_mva_score", f"MVA Score for Prompt Eff. {name_string};|#eta|;p_{{T}}",
         len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64),
         len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64)
     )
     wp_hist_mva.SetStats(0)
 
     wp_hist_pileup = ROOT.TH2F(
-        f"prompt_eff_{prompt_eff * 100:2.0f}_pileup_eff", "Pileup Efficiency;|#eta|;p_{T}",
+        f"prompt_eff_{name_string}_pileup_eff", f"Pileup Eff. for Prompt Eff. {name_string};|#eta|;p_{{T}}",
         len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64),
         len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64)
     )
