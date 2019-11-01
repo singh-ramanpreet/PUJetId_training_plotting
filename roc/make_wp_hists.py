@@ -37,16 +37,16 @@ for prompt_eff in prompt_effs:
     name_string = f"{prompt_eff * 100:2.0f}"
 
     wp_hist_mva = ROOT.TH2F(
-        f"prompt_eff_{name_string}_mva_score", f"MVA Score for Prompt Eff. {name_string};|#eta|;p_{{T}}",
-        len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64),
-        len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64)
+        f"prompt_eff_{name_string}_mva_score", f"MVA Score for Prompt Eff. {name_string};p_{{T}};|#eta|",
+        len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64),
+        len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64)
     )
     wp_hist_mva.SetStats(0)
 
     wp_hist_pileup = ROOT.TH2F(
-        f"prompt_eff_{name_string}_pileup_eff", f"Pileup Eff. for Prompt Eff. {name_string};|#eta|;p_{{T}}",
-        len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64),
-        len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64)
+        f"prompt_eff_{name_string}_pileup_eff", f"Pileup Eff. for Prompt Eff. {name_string};p_{{T}};|#eta|",
+        len(pt_edges) - 1, np.array(pt_edges, dtype=np.float64),
+        len(eta_edges) - 1, np.array(eta_edges, dtype=np.float64)
     )
     wp_hist_pileup.SetStats(0)
 
@@ -63,21 +63,26 @@ for prompt_eff in prompt_effs:
             h_prompt_eff = eff_mva_hists.Get(f"prompt_eff_new_{e}_{p}")
             h_pileup_eff = eff_mva_hists.Get(f"pileup_eff_new_{e}_{p}")
 
+            htemp = h_prompt_eff.Clone()
+
             # loop over eff hist and find nearest best value
             for i in range(1, h_prompt_eff.GetNbinsX() + 1):
-                
-                mva_score_bin = i
-                bin_content = h_prompt_eff.GetBinContent(i)
 
-                if (prompt_eff < bin_content + 0.005) and (prompt_eff > bin_content - 0.005): break
+                bin_content = htemp.GetBinContent(i)
+                if bin_content == 0.0:
+                    htemp.SetBinContent(i, 1)
+                else:
+                    htemp.SetBinContent(i, abs(bin_content - prompt_eff))
+
+            mva_score_bin = htemp.GetMinimumBin()
 
             mva_score_value = h_prompt_eff.GetBinCenter(mva_score_bin)
             pileup_eff = h_pileup_eff.GetBinContent(mva_score_bin)
 
             pileup_eff = round(pileup_eff * 100, 2)
 
-            wp_hist_mva.SetBinContent(wp_hist_mva.FindBin(e_bin_center, p_bin_center), mva_score_value)
-            wp_hist_pileup.SetBinContent(wp_hist_pileup.FindBin(e_bin_center, p_bin_center), pileup_eff)
+            wp_hist_mva.SetBinContent(wp_hist_mva.FindBin(p_bin_center, e_bin_center), mva_score_value)
+            wp_hist_pileup.SetBinContent(wp_hist_pileup.FindBin(p_bin_center, e_bin_center), pileup_eff)
 
     wp_hist_pileup.SetMarkerSize(1.4)
 
