@@ -2,11 +2,22 @@
 
 import ROOT
 from array import array
+import argparse
 
-era = "94X"
-inputFiles = [
-    "/eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8.root",
-]
+parser = argparse.ArgumentParser(
+    description="make TTrees for training"
+    )
+parser.add_argument(
+    "--era", type=str, default="94X", help="MC era, like 94X, 102X"
+    )
+parser.add_argument(
+    "--inputFiles", type=str, default=[], nargs="+", help="MC era, like 94X, 102X"
+    )
+
+args = parser.parse_args()
+
+era = args.era
+inputFiles = args.inputFiles
 
 tChain  = ROOT.TChain("jmechs/events")
 outFile = ROOT.TFile("training_trees_pt10To100_chs_%s.root" % era, "RECREATE")
