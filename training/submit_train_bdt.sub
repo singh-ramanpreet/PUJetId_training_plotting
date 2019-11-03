@@ -7,21 +7,24 @@ log                   = output/log_train_bdt_$(ClusterId)_$(ProcId)
 transfer_input_files  = train_bdt.py,
 transfer_output_files = output,
 
+#arguments            = 94X 500000 chs /afs/cern.ch/work/s/singhr/jets_study/PUJetId_training_plotting/training/input/ $(eta_bin)
+arguments            = 102X 500000 chs /afs/cern.ch/work/s/singhr/jets_study/PUJetId_training_plotting/training/input/ $(eta_bin)
+
 #+JobFlavour           = "espresso"
 +JobFlavour           = "workday"
 
 # +AccountingGroup     = "group_u_CMST3.all"
 +AccountingGroup      = "group_u_CMS.u_zh.priority"
 
-arguments             = "Eta0p0To2p5"
+eta_bin               = Eta0p0To2p5
 queue
 
-arguments             = "Eta2p5To2p75"
+eta_bin               = Eta2p5To2p75
 queue
 
-arguments             = "Eta2p75To3p0"
+eta_bin               = Eta2p75To3p0
 queue
 
-arguments             = "Eta3p0To5p0"
+eta_bin               = Eta3p0To5p0
 queue
  
