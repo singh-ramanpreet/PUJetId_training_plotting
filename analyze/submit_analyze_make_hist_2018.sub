@@ -4,7 +4,7 @@ output                = output/$(output_filename).std
 error                 = output/$(output_filename).std
 log                   = output/$(output_filename).log
 
-transfer_input_files  = analyze_make_hists.py, tmva_weights, pu_weights_2017.root
+transfer_input_files  = analyze_make_hists.py, tmva_weights, pu_weights_2018.root
 transfer_output_files = output,
 
 +JobFlavour           = "espresso"
@@ -24,9 +24,9 @@ xs = 5321.0
 
 arguments = $(era) $(data_type) $(year) $(period) $(lumi) $(N_mc) $(xs) $(input_filename) $(output_filename)
 
-do_dy_madgraph = False
+do_dy_madgraph = True
 do_dy_amcatnlo = False
-do_dy_amcatnlo_ext2 = True
+do_dy_amcatnlo_ext2 = False
 do_data_doubleMu = False
 
 # set "full" False for data
@@ -44,6 +44,8 @@ do_period_D = False
 if $(do_dy_madgraph)
     mc_pt = 10
     data_type = mc
+    N_mc = 100194597
+    xs = 5321.0
     output_filename = dy_madgraph_$(mc_pt)_$(data_type)_$(year)$(period)_$(ItemIndex).root
     input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_$(year)/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree_
 endif
