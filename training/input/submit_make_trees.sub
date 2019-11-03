@@ -9,5 +9,6 @@ transfer_input_files = make_training_trees.py,
 arguments            = 102X /eos/user/s/singhr/jme_ntuples/dy_inc_2018/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8.root
 
 +JobFlavour          = "tomorrow"
+MaxTransferOutputMB = -1
 
 queue
