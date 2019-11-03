@@ -3,8 +3,14 @@
 import ROOT
 import os
 from pyroot_cms_scripts import CMS_style
+import argparse
 
-mc_file = ROOT.TFile.Open("dy_madgraph_10_mc_2017full.root")
+parser = argparse.ArgumentParser("")
+parser.add_argument("--year", type=str, default="2017")
+
+args = parser.parse_args()
+
+mc_file = ROOT.TFile.Open(f"dy_madgraph_10_mc_{args.year}full.root")
 
 eta_bins = [
     "Eta0p0To2p5",
@@ -81,4 +87,5 @@ for e in eta_bins:
 
         legend.Draw()
         canvas.Draw()
-        canvas.Print(f"plots/mva_{e}_{p}.pdf")
+        os.makedirs(f"plt_mva_{args.year}", exist_ok=True)
+        canvas.Print(f"plt_mva_{args.year}/mva_{e}_{p}.pdf")

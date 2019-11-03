@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 
 import ROOT
+import os
+import argparse
+
+parser = argparse.ArgumentParser("")
+parser.add_argument("--year", type=str, default="2017")
+parser.add_argument("--batch", action="store_true")
+
+args = parser.parse_args()
+
+print(args.batch)
+if args.batch:
+    ROOT.gROOT.SetBatch(1)
 
 ROOT.gStyle.SetPadTickX(1)
 ROOT.gStyle.SetPadTickY(1)
@@ -19,7 +31,9 @@ ROOT.gROOT.ForceStyle()
 
 canvas = ROOT.TCanvas()
 
-hist_file = ROOT.TFile.Open("PUJetId_wp_hists.root")
+hist_file = ROOT.TFile.Open(f"PUJetId_wp_hists_{args.year}.root")
+
+os.makedirs(f"working_points_{args.year}", exist_ok=True)
 
 for i in range(80, 100):
 
@@ -31,8 +45,8 @@ for i in range(80, 100):
     
     eff_plot_binned.Draw("coltext89")
     canvas.Draw()
-    canvas.Print(f"working_points/prompt_eff_{i}_binned.pdf")
+    canvas.Print(f"working_points_{args.year}/prompt_eff_{i}_binned.pdf")
     
     eff_plot_inc.Draw("coltext89")
     canvas.Draw()
-    canvas.Print(f"working_points/prompt_eff_{i}_inc.pdf")
+    canvas.Print(f"working_points_{args.year}/prompt_eff_{i}_inc.pdf")

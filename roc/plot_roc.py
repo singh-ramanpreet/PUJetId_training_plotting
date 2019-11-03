@@ -3,8 +3,15 @@
 import ROOT
 import os
 from pyroot_cms_scripts import CMS_style
+import argparse
 
-eff_mva_hists = ROOT.TFile.Open("eff_mva_hists.root")
+parser = argparse.ArgumentParser("")
+parser.add_argument("--year", type=str, default="2017")
+
+args = parser.parse_args()
+
+eff_mva_hists = ROOT.TFile.Open(f"eff_mva_hists_{args.year}.root")
+
 eta_bin = "Eta0p0To2p5"
 pt_bin = "Pt10To20"
 
@@ -89,4 +96,5 @@ for e in eta_bins:
     legend.Draw()
 
     canvas.Draw()
-    canvas.Print(f"plots/roc_{eta_bin}.pdf")
+    os.makedirs(f"plt_roc_{args.year}", exist_ok=True)
+    canvas.Print(f"plt_roc_{args.year}/roc_{eta_bin}.pdf")

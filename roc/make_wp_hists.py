@@ -2,9 +2,15 @@
 
 import ROOT
 import numpy as np
+import argparse
 
-eff_mva_hists = ROOT.TFile.Open("eff_mva_hists.root")
-output_root_file = ROOT.TFile("PUJetId_wp_hists.root", "recreate")
+parser = argparse.ArgumentParser("")
+parser.add_argument("--year", type=str, default="2017")
+
+args = parser.parse_args()
+
+eff_mva_hists = ROOT.TFile.Open(f"eff_mva_hists_{args.year}.root")
+output_root_file = ROOT.TFile(f"PUJetId_wp_hists_{args.year}.root", "recreate")
 
 eta_bins = [
     "Eta0p0To2p5",

@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
 import ROOT
+import argparse
 
-mc_file = ROOT.TFile.Open("dy_madgraph_10_mc_2017full.root")
+parser = argparse.ArgumentParser("")
+parser.add_argument("--year", type=str, default="2017")
+
+args = parser.parse_args()
+
+mc_file = ROOT.TFile.Open(f"dy_madgraph_10_mc_{args.year}full.root")
 eta_bin = "Eta0p0To2p5"
 pt_bin = "Pt10To20"
 
@@ -68,7 +74,7 @@ pt_bins = [
     "Pt50To100"
 ]
 
-eff_out_file = ROOT.TFile("eff_mva_hists.root", "recreate")
+eff_out_file = ROOT.TFile(f"eff_mva_hists_{args.year}.root", "recreate")
 
 for category in ["old", "new"]:
 
