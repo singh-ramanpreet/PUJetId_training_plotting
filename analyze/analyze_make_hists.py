@@ -425,7 +425,7 @@ def write_hists(k=""):
 
 # pileup weight
 
-f_pu_weights = ROOT.TFile.Open("pu_weights_2017.root")
+f_pu_weights = ROOT.TFile.Open(f"pu_weights_{year}.root")
 h_pu_weights = f_pu_weights.Get("weights")
 
 def process_event(e):
