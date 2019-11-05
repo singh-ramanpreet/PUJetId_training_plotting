@@ -43,10 +43,10 @@ for i in range(80, 100):
     eff_plot_inc = hist_file.Get(f"pt_bin_inclusive/prompt_eff_{i}_pileup_eff")
     eff_plot_inc.SetMarkerSize(2.7)
     
-    eff_plot_binned.Draw("coltext89")
+    eff_plot_binned.Draw("coltext")
     canvas.Draw()
     canvas.Print(f"working_points_{args.year}/prompt_eff_{i}_binned.pdf")
     
-    eff_plot_inc.Draw("coltext89")
+    eff_plot_inc.Draw("coltext")
     canvas.Draw()
     canvas.Print(f"working_points_{args.year}/prompt_eff_{i}_inc.pdf")
