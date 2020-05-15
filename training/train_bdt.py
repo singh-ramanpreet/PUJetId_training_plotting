@@ -142,7 +142,7 @@ for eta_bin in eta_bins:
         loader,
         ROOT.TMVA.Types.kBDT,
         "BDT",
-        "!H:!V:NTrees=500:BoostType=Grad:Shrinkage=0.1:DoBoostMonitor"
+        "!H:!V:NTrees=800:BoostType=Grad:Shrinkage=0.1:DoBoostMonitor"
     )
     factory.TrainAllMethods()
     factory.TestAllMethods()

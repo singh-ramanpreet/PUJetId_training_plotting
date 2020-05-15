@@ -2,7 +2,7 @@
 
 import ROOT
 
-tFile = ROOT.TFile.Open("input/training_trees_pt10To100_chs_94X.root")
+tFile = ROOT.TFile.Open("input/training_trees_pt10To100_chs_UL17.root")
 
 trees_name = [tFile.GetListOfKeys()[i].GetName() for i in range(len(tFile.GetListOfKeys()))]
 

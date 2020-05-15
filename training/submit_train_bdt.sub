@@ -8,7 +8,8 @@ transfer_input_files  = train_bdt.py,
 transfer_output_files = output,
 
 #arguments            = 94X 500000 chs /afs/cern.ch/work/s/singhr/jets_study/PUJetId_training_plotting/training/input/ $(eta_bin)
-arguments            = 102X 500000 chs /afs/cern.ch/work/s/singhr/jets_study/PUJetId_training_plotting/training/input/ $(eta_bin)
+#arguments            = 102X 500000 chs /afs/cern.ch/work/s/singhr/jets_study/PUJetId_training_plotting/training/input/ $(eta_bin)
+arguments            = UL17 1000000 chs /afs/cern.ch/work/s/singhr/jets_study/PUJetId_UL17/training/input/ $(eta_bin)
 
 #+JobFlavour           = "espresso"
 +JobFlavour           = "workday"
