@@ -11,6 +11,9 @@ parser.add_argument(
     "--era", type=str, default="94X", help="MC era, like 94X, 102X"
     )
 parser.add_argument(
+    "--type", type=str, default="chs", help="jet type: chs or puppi"
+    )
+parser.add_argument(
     "--inputFiles", type=str, default=[], nargs="+", help="MC era, like 94X, 102X"
     )
 
@@ -19,8 +22,8 @@ args = parser.parse_args()
 era = args.era
 inputFiles = args.inputFiles
 
-tChain  = ROOT.TChain("jmechs/events")
-outFile = ROOT.TFile("training_trees_pt10To100_chs_%s.root" % era, "RECREATE")
+tChain  = ROOT.TChain(f"jme{args.type}/events")
+outFile = ROOT.TFile(f"training_trees_pt10To100_{args.type}_{args.era}.root", "RECREATE")
 
 for inputFile in inputFiles:
     tChain.Add(inputFile)
