@@ -7,9 +7,10 @@ stream_output        = True
 
 transfer_input_files = make_training_trees.py,
 
-#arguments            = 94X /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8.root
-#arguments            = 102X /eos/user/s/singhr/jme_ntuples/dy_inc_2018/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8.root
-arguments            = UL17 /eos/user/s/singhr/jme_ntuplesUL/dy_inc_UL17/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree_*
+#arguments            = 94X chs /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8.root
+#arguments            = 102X chs /eos/user/s/singhr/jme_ntuples/dy_inc_2018/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8.root
+#arguments            = UL17 chs /eos/user/s/singhr/jme_ntuplesUL/dy_inc_UL17/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree_*
+arguments            = UL18 chs /eos/user/s/singhr/jme_ntuplesUL/dy_inc_UL18/cut_pt10/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree_*
 
 +JobFlavour          = "tomorrow"
 MaxTransferOutputMB = -1

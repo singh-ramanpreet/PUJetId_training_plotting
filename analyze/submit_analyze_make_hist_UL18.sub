@@ -1,0 +1,63 @@
+# this is comment line
+executable            = run_analyze_make_hist.sh
+output                = output/$(output_filename).std
+error                 = output/$(output_filename).std
+log                   = output/$(output_filename).log
+
+transfer_input_files  = analyze_make_hists.py, tmva_weights, pu_weights_UL18.root
+transfer_output_files = output,
+
++JobFlavour           = "espresso"
+#+JobFlavour           = "workday"
+
+#+AccountingGroup      = "group_u_CMST3.all"
++AccountingGroup      = "group_u_CMS.u_zh.priority"
+
+era = UL18
+year = 2018
+period = full
+lumi = 59.74
+N_mc = 104017741
+xs = 5343.0
+
+arguments = $(era) $(data_type) $(year) $(period) $(lumi) $(N_mc) $(xs) $(input_filename) $(output_filename)
+
+mc_pt = 10
+
+data_type = mc
+output_filename = dy_madgraph_$(mc_pt)_$(data_type)_$(year)$(period)_$(ItemIndex).root
+input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/dy_inc_UL18/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree_
+
+
+# amcatnlo
+    # neg events fraction 0.1624
+    # ntotal = 203972117 after missing block in DAS
+    # N_mc = ntotal - 2 * neg_fraction * ntotal
+
+#data_type = mc
+#N_mc = 137721973
+#xs = 6529.0
+#output_filename = dy_amcatnlo_$(mc_pt)_$(data_type)_$(year)$(period)_$(ItemIndex).root
+#input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/dy_inc_UL18/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/mc_flatTree_
+
+
+#data_type = data
+#output_filename = double_muon_$(data_type)_$(year)$(period)_$(ItemIndex).root
+#input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/Data_$(era)/DoubleMuon_$(period)/data_flatTree_
+
+#period = A
+#lumi = 14.00
+
+#period = B
+#lumi = 7.10
+
+#period = C
+#lumi = 6.94
+
+#period = D
+#lumi = 31.93
+
+# resubmit specific failed jobs
+# noop_job = ($(Process) != 89)
+
+queue input_filename matching files ($(input_file_dir)*.root)

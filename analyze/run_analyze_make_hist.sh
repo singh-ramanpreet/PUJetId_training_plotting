@@ -19,6 +19,7 @@ output_filename=$9
 --period=$period \
 --lumi=$lumi \
 --N_mc=$N_mc \
+--xs=$xs \
 --input_filename $input_filename \
 --output_filename $output_filename
 

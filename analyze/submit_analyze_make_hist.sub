@@ -26,12 +26,11 @@ xs = 5343.0
 
 arguments = $(era) $(data_type) $(year) $(period) $(lumi) $(N_mc) $(xs) $(input_filename) $(output_filename)
 
-mc_pt = 10
+mc_pt = 20
 
-do_dy_madgraph = True
+do_dy_madgraph = False
 do_dy_amcatnlo = False
-do_data_doubleMu = False
-do_data_SingleMu = False
+do_data_doubleMu = True
 
 # set "full" False for data
 # and others True
@@ -39,11 +38,11 @@ do_data_SingleMu = False
 # set "full" True for mc
 # and others True, as needed
 
-do_period_full = True
+do_period_full = False
 do_period_B = False
 do_period_C = False
 do_period_D = False
-do_period_E = False
+do_period_E = True
 do_period_F = False
 
 if $(do_dy_madgraph)
@@ -55,24 +54,18 @@ endif
 if $(do_dy_amcatnlo)
     data_type = mc
     # neg events fraction 0.1624
-    # ntotal = 27413121
+    # ntotal = 202549488
     # N_mc = ntotal - 2 * neg_fraction * ntotal
-    N_mc = 18509339
+    N_mc = 136761414
     xs = 6529.0
     output_filename = dy_amcatnlo_$(mc_pt)_$(data_type)_$(year)$(period)_$(ItemIndex).root
-    input_file_dir = /eos/user/s/singhr/jme_ntuples/dy_inc_2017/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/mc_flatTree_
+    input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/dy_inc_UL17/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/mc_flatTree_
 endif
 
 if $(do_data_doubleMu)
     data_type = data
     output_filename = double_muon_$(data_type)_$(year)$(period)_$(ItemIndex).root
-    input_file_dir = /eos/user/s/singhr/jme_ntuples/Data_$(year)/DoubleMuon_$(period)/data_flatTree_
-endif
-
-if $(do_data_SingleMu)
-    data_type = data
-    output_filename = single_muon_$(data_type)_$(year)$(period)_$(ItemIndex).root
-    input_file_dir = /eos/user/s/singhr/jme_ntuples/Data_$(year)/SingleMuon_$(period)/data_flatTree_
+    input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/Data_$(era)/DoubleMuon_$(period)/data_flatTree_
 endif
 
 if $(do_period_full)
@@ -104,5 +97,8 @@ if $(do_period_F)
     period = F
     lumi = 13.54
 endif
+
+# resubmit specific failed jobs
+# noop_job = ($(Process) != 89)
 
 queue input_filename matching files ($(input_file_dir)*.root)
