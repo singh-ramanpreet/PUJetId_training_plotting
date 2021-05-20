@@ -430,6 +430,12 @@ if era == "UL17":
 elif era == "UL18":
     f_pu_weights = ROOT.TFile.Open(f"pu_weights_UL18.root")
     h_pu_weights = f_pu_weights.Get("pu_weights_central")
+elif era == "UL16":
+    f_pu_weights = ROOT.TFile.Open(f"pu_weights_UL16.root")
+    h_pu_weights = f_pu_weights.Get("pu_weights_central")
+elif era == "UL16APV":
+    f_pu_weights = ROOT.TFile.Open(f"pu_weights_UL16.root")
+    h_pu_weights = f_pu_weights.Get("pu_weights_central")
 else:
     f_pu_weights = ROOT.TFile.Open(f"pu_weights_{year}.root")
     h_pu_weights = f_pu_weights.Get("weights")

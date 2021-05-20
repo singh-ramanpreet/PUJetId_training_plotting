@@ -1,0 +1,59 @@
+# this is comment line
+executable            = run_analyze_make_hist.sh
+output                = output/$(output_filename).std
+error                 = output/$(output_filename).std
+log                   = output/$(output_filename).log
+
+transfer_input_files  = analyze_make_hists.py, tmva_weights, pu_weights_UL16.root
+transfer_output_files = output,
+
++JobFlavour           = "espresso"
+#+JobFlavour           = "workday"
+
+era = UL16APV
+year = 2016
+period = full
+lumi = 19.5
+N_mc = 94539072
+xs = 5343.0
+
+arguments = $(era) $(data_type) $(year) $(period) $(lumi) $(N_mc) $(xs) $(input_filename) $(output_filename)
+
+mc_pt = 20
+
+#data_type = mc
+#output_filename = dy_madgraph_$(mc_pt)_$(data_type)_$(era)$(period)_$(ItemIndex).root
+#input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/dy_inc_$(era)/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/mc_flatTree_
+#queue input_filename matching files ($(input_file_dir)*.root)
+
+
+# amcatnlo
+    # neg events fraction 0.1624
+    # ntotal = 187634918
+    # N_mc = ntotal - 2 * neg_fraction * ntotal
+
+#data_type = mc
+#N_mc = 126691097
+#xs = 6529.0
+#output_filename = dy_amcatnlo_$(mc_pt)_$(data_type)_$(era)$(period)_$(ItemIndex).root
+#input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/dy_inc_$(era)/cut_pt$(mc_pt)/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/mc_flatTree_
+#queue input_filename matching files ($(input_file_dir)*.root)
+
+
+data_type = data
+output_filename = double_muon_$(data_type)_$(era)$(period)_$(ItemIndex).root
+input_file_dir = /eos/user/s/singhr/jme_ntuplesUL/Data_$(era)/DoubleMuon_$(period)/data_flatTree_
+period = B
+queue input_filename matching files ($(input_file_dir)*.root)
+period = C
+queue input_filename matching files ($(input_file_dir)*.root)
+period = D
+queue input_filename matching files ($(input_file_dir)*.root)
+period = E
+queue input_filename matching files ($(input_file_dir)*.root)
+period = F
+queue input_filename matching files ($(input_file_dir)*.root)
+
+# resubmit specific failed jobs
+#noop_job = ($(Process) != 402)
+#queue input_filename matching files ($(input_file_dir)*.root)
